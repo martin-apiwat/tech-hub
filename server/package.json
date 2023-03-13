@@ -5,19 +5,18 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc src/*.ts --outdir dist",
-    "dev": "tsc --watch src/*.ts --outdir dist & nodemon dist/index.js"
+    "build": "tsc",
+    "dev": "tsc -w & nodemon dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2",
-    "mongoose": "^7.0.1"
-  },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "nodemon": "^2.0.21",
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }

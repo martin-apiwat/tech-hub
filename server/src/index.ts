@@ -1,6 +1,9 @@
 import express from "express";
+
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("hej");
+  res.send("Martin");
 });
+
+app.listen(3000);
