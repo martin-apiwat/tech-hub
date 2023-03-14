@@ -11,7 +11,9 @@ export default function HomePage() {
   } = useQuery<Question[]>({
     queryKey: ["questions"],
     queryFn: () =>
-      fetch("http://localhost:3000/questions").then((data) => data.json()),
+      fetch(`${import.meta.env.VITE_SOME_SERVER_URL}/questions`).then((data) =>
+        data.json()
+      ),
   });
 
   if (isLoading)
