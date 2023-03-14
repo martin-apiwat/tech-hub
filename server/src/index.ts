@@ -1,6 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import { config } from "dotenv";
+
+config();
+
+const DB = process.env.DB;
 
 const app = express();
 
@@ -31,8 +36,11 @@ app.get("/questions", async (req, res) => {
   res.send(questions);
 });
 
+app.get("/questions/:id", async (req, res) => {
+  const question = await Question.findById(req.params.id);
+  res.send(question);
+});
+
 app.listen(3000, () => {
-  mongoose.connect(
-    "mongodb+srv://MartinApiwat:Martin123@cluster0.rigswq4.mongodb.net/techhub?retryWrites=true&w=majority"
-  );
+  if (DB) mongoose.connect(DB);
 });
