@@ -1,7 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors({ origin: "*" }));
 
 app.get("/", (req, res) => {
   res.send("Martin");
@@ -30,6 +33,6 @@ app.get("/questions", async (req, res) => {
 
 app.listen(3000, () => {
   mongoose.connect(
-    "mongodb+srv://MartinApiwat:Martin123@cluster0.rigswq4.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://MartinApiwat:Martin123@cluster0.rigswq4.mongodb.net/techhub?retryWrites=true&w=majority"
   );
 });
