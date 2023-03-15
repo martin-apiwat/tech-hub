@@ -5,16 +5,19 @@ export default function AskQuestionPage() {
   const [description, setDescription] = useState("");
 
   async function sendQuestion() {
-    const response = await fetch("http://localhost:3000/question", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: title,
-        description: description,
-      }),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_SOME_SERVER_URL}/question`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          description: description,
+        }),
+      }
+    );
     const data = await response.json();
     setTitle("");
     setDescription("");
