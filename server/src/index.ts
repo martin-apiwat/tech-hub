@@ -41,6 +41,15 @@ app.get("/questions/:id", async (req, res) => {
   res.send(question);
 });
 
+app.post("/question", async (req, res) => {
+  await Question.create({
+    title: "Titel",
+    description: "Testar",
+  });
+
+  res.send("wag1");
+});
+
 app.listen(3000, () => {
   if (DB) mongoose.connect(DB);
 });

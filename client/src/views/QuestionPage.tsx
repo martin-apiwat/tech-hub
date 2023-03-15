@@ -25,7 +25,7 @@ export default function QuestionPage() {
 
   return (
     <div className="p-4">
-      <div className="max-w-4xl mx-auto py-4">
+      <div className="py-4">
         <div className="border-b pb-4 mb-4">
           <h2 className="text-2xl text-gray-700">{question.title}</h2>
           <p className="text-gray-400 text-sm">

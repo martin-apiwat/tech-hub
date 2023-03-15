@@ -23,7 +23,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="max-w-4xl mx-auto">
+      <div className="">
         {questions.map((question) => (
           <QuestionCard question={question} />
         ))}
