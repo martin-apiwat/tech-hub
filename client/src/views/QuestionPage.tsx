@@ -25,12 +25,18 @@ export default function QuestionPage() {
 
   return (
     <div className="p-4">
-      <div className="text-2xl">{question.title}</div>
-      <div className="text-sm flex gap-1">
-        <p className="text-gray-400">Asked</p>{" "}
-        {moment(question.createdAt).startOf("day").fromNow()}
+      <div className="max-w-4xl mx-auto py-4">
+        <div className="border-b pb-4 mb-4">
+          <h2 className="text-2xl text-gray-700">{question.title}</h2>
+          <p className="text-gray-400 text-sm">
+            Asked {""}
+            <span className="text-gray-800">
+              {moment(question.createdAt).startOf("day").fromNow()}
+            </span>
+          </p>
+        </div>
+        <p className="text-sm">{question.description}</p>
       </div>
-      <p className="text-sm mt-10">{question.description}</p>
     </div>
   );
 }
