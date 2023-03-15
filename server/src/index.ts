@@ -11,6 +11,8 @@ const app = express();
 
 app.use(cors({ origin: "*" }));
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Martin");
 });
@@ -42,12 +44,12 @@ app.get("/questions/:id", async (req, res) => {
 });
 
 app.post("/question", async (req, res) => {
-  await Question.create({
-    title: "Titel",
-    description: "Testar",
+  const question = await Question.create({
+    title: req.body.title,
+    description: req.body.description,
   });
 
-  res.send("wag1");
+  res.send(question);
 });
 
 app.listen(3000, () => {
