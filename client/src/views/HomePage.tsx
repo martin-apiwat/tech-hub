@@ -2,6 +2,8 @@ import React from "react";
 import QuestionCard from "../components/QuestionCard";
 import { useQuery } from "@tanstack/react-query";
 import { Question } from "../Question";
+import LoadingScreen from "../components/LoadingScreen";
+import ErrorScreen from "../components/ErrorScreen";
 
 export default function HomePage() {
   const {
@@ -16,14 +18,8 @@ export default function HomePage() {
       ),
   });
 
-  if (isLoading)
-    return (
-      <div className="flex justify-center py-10">
-        <div className="w-7 h-7 border-4 border-t-orange-500 rounded-full animate-spin"></div>
-      </div>
-    );
-
-  if (isError) return <div>Oops, something went wrong...</div>;
+  if (isLoading) return <LoadingScreen />;
+  if (isError) return <ErrorScreen />;
 
   return (
     <div>
