@@ -28,6 +28,14 @@ export default function Navbar({}: Props) {
             Tags
           </li>
         </ul>
+        <div className="flex gap-1 text-xs justify-end">
+          <button className="py-1 px-2 bg-[#e1ecf4] rounded border border-[#7aa7c7] text-[#39749d]">
+            Log in
+          </button>
+          <button className="py-1 px-2 bg-[#0a95ff] text-white rounded">
+            Sign up
+          </button>
+        </div>
       </div>
     </nav>
   );
