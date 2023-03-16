@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AskQuestionPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   async function sendQuestion() {
     const response = await fetch(
@@ -21,6 +23,7 @@ export default function AskQuestionPage() {
     const data = await response.json();
     setTitle("");
     setDescription("");
+    navigate("/questions/" + data._id);
   }
 
   return (
@@ -33,6 +36,7 @@ export default function AskQuestionPage() {
         className="bg-gray-100 border p-1 w-full min-h-[50px]"
         placeholder="Your title"
         onChange={(e) => setTitle(e.target.value)}
+        value={title}
       ></textarea>
 
       <label htmlFor="Description">Description</label>
@@ -41,6 +45,7 @@ export default function AskQuestionPage() {
         className="bg-gray-100 border p-1 w-full min-h-[200px]"
         placeholder="Your description"
         onChange={(e) => setDescription(e.target.value)}
+        value={description}
       ></textarea>
 
       <button

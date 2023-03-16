@@ -15,7 +15,7 @@ export default function QuestionCard({ question }: Props) {
       </Link>
       <p className="text-sm">{question.description}</p>
       <div className="text-xs text-gray-500 flex justify-end">
-        asked {moment(question.createdAt).startOf("day").fromNow()}
+        asked {moment(question.createdAt).startOf("minute").fromNow()}
       </div>
     </div>
   );
