@@ -4,7 +4,8 @@ import { useParams } from "react-router";
 import ErrorScreen from "../components/ErrorScreen";
 import LoadingScreen from "../components/LoadingScreen";
 import { Question } from "../Question";
-import moment, { calendarFormat } from "moment";
+import { Comment } from "../Comment";
+import moment from "moment";
 
 export default function QuestionPage() {
   const { id } = useParams();
@@ -12,14 +13,31 @@ export default function QuestionPage() {
     data: question,
     isLoading,
     isError,
-  } = useQuery<Question>({
+    refetch,
+  } = useQuery<Question & { comments: Comment[] }>({
     queryKey: ["questions", id],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_SOME_SERVER_URL}/questions/${id}`).then(
         (data) => data.json()
       ),
   });
+
   const [answer, setAnswer] = useState("");
+
+  async function sendComment() {
+    const response = await fetch(
+      `${import.meta.env.VITE_SOME_SERVER_URL}/questions/${id}` + "/comments",
+      {
+        method: "POST",
+        body: JSON.stringify({ text: answer }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setAnswer("");
+    refetch();
+  }
 
   if (isLoading) return <LoadingScreen />;
   if (isError) return <ErrorScreen />;
@@ -37,6 +55,18 @@ export default function QuestionPage() {
           </p>
         </div>
         <p className="text-sm mb-10">{question.description}</p>
+
+        <div className="my-10">
+          <h2 className="text-lg">All comments</h2>
+          {question.comments.map((comment) => (
+            <div className="bg-gray-100 mb-1 p-4 flex justify-between">
+              <p className="text-sm">{comment.text}</p>
+              <div className="text-xs text-gray-700">
+                {moment(question.createdAt).startOf("minute").fromNow()}
+              </div>
+            </div>
+          ))}
+        </div>
         <div>
           <label className="text-lg" htmlFor="answer-textarea">
             Your answer
@@ -49,7 +79,7 @@ export default function QuestionPage() {
             value={answer}
           ></textarea>
           <button
-            // onClick={() => sendQuestion()}
+            onClick={() => sendComment()}
             className="py-1 px-2 bg-[#0a95ff] text-white rounded hover:opacity-80"
           >
             Add answer

@@ -33,33 +33,6 @@ const questionSchema = new mongoose.Schema(
 
 const Question = mongoose.model("questions", questionSchema);
 
-app.get("/questions", async (req, res) => {
-  const questions = await Question.find();
-  res.send(questions);
-});
-
-app.get("/questions/:id", async (req, res) => {
-  try {
-    const question = await Question.findById(req.params.id);
-
-    if (!question) {
-      return res.status(404).send("Question not found");
-    }
-    res.send(question);
-  } catch (error) {
-    res.status(404).send("Question not found");
-  }
-});
-
-app.post("/question", async (req, res) => {
-  const question = await Question.create({
-    title: req.body.title,
-    description: req.body.description,
-  });
-
-  res.send(question);
-});
-
 const commentSchema = new mongoose.Schema(
   {
     text: {
@@ -76,6 +49,36 @@ const commentSchema = new mongoose.Schema(
 );
 
 const Comment = mongoose.model("comments", commentSchema);
+
+app.get("/questions", async (req, res) => {
+  const questions = await Question.find();
+  res.send(questions);
+});
+
+app.get("/questions/:id", async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.id).lean();
+
+    if (!question) {
+      return res.status(404).send("Question not found");
+    }
+
+    const comments = await Comment.find({ questionId: req.params.id });
+
+    res.send({ ...question, comments: comments });
+  } catch (error) {
+    res.status(404).send("Question not found");
+  }
+});
+
+app.post("/question", async (req, res) => {
+  const question = await Question.create({
+    title: req.body.title,
+    description: req.body.description,
+  });
+
+  res.send(question);
+});
 
 app.post("/questions/:id/comment", async (req, res) => {
   const comment = await Comment.create({

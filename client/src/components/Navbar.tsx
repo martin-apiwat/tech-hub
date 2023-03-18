@@ -29,10 +29,10 @@ export default function Navbar({}: Props) {
           </li>
         </ul>
         <div className="flex gap-1 ml-auto">
-          <button className="py-1 px-2 text-xs bg-[#e1ecf4] rounded border border-[#7aa7c7] text-[#39749d]">
+          <button className="py-1 px-2 text-xs bg-[#e1ecf4] rounded border border-[#7aa7c7] text-[#39749d] hover:bg-slate-300">
             Log in
           </button>
-          <button className="py-1 px-2 text-xs bg-[#0a95ff] text-white rounded">
+          <button className="py-1 px-2 text-xs bg-[#0a95ff] text-white rounded hover:opacity-90">
             Sign up
           </button>
           <Link
