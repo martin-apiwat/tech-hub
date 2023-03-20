@@ -26,7 +26,7 @@ export default function QuestionPage() {
 
   async function sendComment() {
     const response = await fetch(
-      `${import.meta.env.VITE_SOME_SERVER_URL}/questions/${id}` + "/comments",
+      `${import.meta.env.VITE_SOME_SERVER_URL}/questions/${id}/comment`,
       {
         method: "POST",
         body: JSON.stringify({ text: answer }),
@@ -62,7 +62,7 @@ export default function QuestionPage() {
             <div className="bg-gray-100 mb-1 p-4 flex justify-between">
               <p className="text-sm">{comment.text}</p>
               <div className="text-xs text-gray-700">
-                {moment(question.createdAt).startOf("minute").fromNow()}
+                {moment(comment.createdAt).startOf("minute").fromNow()}
               </div>
             </div>
           ))}
